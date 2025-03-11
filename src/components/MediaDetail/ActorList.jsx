@@ -5,7 +5,7 @@ const ActorList = ({ actors = [] }) => {
   const [isShowMore, setIsShowMore] = useState(false);
 
   const currentActors = isShowMore ? actors.slice(0, 32) : actors.slice(0, 4);
-
+  console.log(currentActors);
   return (
     <div>
       <p className="mb-4 text-[1.4vw] font-bold">Actors</p>
@@ -17,6 +17,7 @@ const ActorList = ({ actors = [] }) => {
             name={actor.name}
             character={actor.character}
             profilePath={actor.profile_path}
+            episodeCount={actor.episodeCount}
           />
         ))}
         {/* <ActorInfo />

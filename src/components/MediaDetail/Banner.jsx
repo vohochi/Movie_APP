@@ -13,8 +13,8 @@ const Banner = ({
   release_date,
   genres,
   overview,
-  poster_path,
   point = 0,
+  poster_path,
 }) => {
   console.log({ mediaInfo });
 
@@ -40,7 +40,7 @@ const Banner = ({
           <p className="mb-2 text-[2vw] font-bold">{title || name}</p>
           <div className="flex items-center gap-4">
             <span className="border border-gray-400 p-1 text-gray-400">
-              {certification}
+              {certification || "TV Show"}
             </span>
             <p>{release_date}</p>
             <p>{(genres || []).map((genre) => genre.name).join(", ")}</p>

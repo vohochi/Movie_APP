@@ -24,16 +24,18 @@ const TVShowDetail = () => {
     return <Loading />;
   }
 
-  const certification = (
-    (tvInfo.release_dates?.results || []).find(
-      (result) => result.iso_3166_1 === "US",
-    )?.release_dates || []
-  ).find((releaseDate) => releaseDate.certification)?.certification;
+  const certification = (tvInfo.content_ratings?.results || []).find(
+    (result) => result.iso_3166_1 === "US",
+  )?.rating;
 
-  const crews = (tvInfo.credits?.crew || [])
-    .filter((crew) => ["Director", "Screenplay", "Writer"].includes(crew.job))
-    .map((crew) => ({ id: crew.id, job: crew.job, name: crew.name }));
-
+  const crews = (tvInfo.aggregate_credits?.crew || [])
+    .filter((crew) => {
+      const jobs = (crew.jobs || []).map((j) => j.job);
+      return ["Director", "Writer"].some((job) => jobs.find((j) => j === job));
+    })
+    .slice(0, 5)
+    .map((crew) => ({ id: crew.id, job: crew.jobs[0].job, name: crew.name }));
+  console.log({ crews });
   return (
     <div>
       <Banner
