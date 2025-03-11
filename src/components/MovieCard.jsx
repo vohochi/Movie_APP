@@ -4,7 +4,10 @@ import Image from "./Image";
 
 const MovieCard = ({ id, title, releaseDate, poster, point, mediaType }) => {
   return (
-    <Link to={`/movie/${id}`} className="rounded-lg border border-slate-800">
+    <Link
+      to={mediaType === "tv" ? `/tv/${id}` : `/movie/${id}`}
+      className="rounded-lg border border-slate-800"
+    >
       <div className="relative">
         {mediaType === "tv" && (
           <p className="absolute right-1 top-1 rounded bg-black p-1 text-sm text-white shadow-md">
@@ -15,7 +18,7 @@ const MovieCard = ({ id, title, releaseDate, poster, point, mediaType }) => {
           src={`https://image.tmdb.org/t/p/w500${poster}`}
           width={210}
           height={300}
-          className="rounded-lg w-full"
+          className="w-full rounded-lg"
         />
         <div className="relative -top-[1.5vw] px-4">
           <CircularProgressBar

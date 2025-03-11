@@ -24,11 +24,29 @@ const MovieDetail = () => {
     return <Loading />;
   }
 
-  console.log({ movieInfo });
+  const certification = (
+    (movieInfo.release_dates?.results || []).find(
+      (result) => result.iso_3166_1 === "US",
+    )?.release_dates || []
+  ).find((releaseDate) => releaseDate.certification)?.certification;
+
+  const crews = (movieInfo.credits?.crew || [])
+    .filter((crew) => ["Director", "Screenplay", "Writer"].includes(crew.job))
+    .map((crew) => ({ id: crew.id, job: crew.job, name: crew.name }));
 
   return (
     <div>
-      <Banner mediaInfo={movieInfo} />
+      <Banner
+        title={movieInfo.title}
+        backdrop_path={movieInfo.backdrop_path}
+        poster_path={movieInfo.poster_path}
+        release_date={movieInfo.release_date}
+        genres={movieInfo.genres}
+        point={movieInfo.vote_average}
+        overview={movieInfo.overview}
+        certification={certification}
+        crews={crews}
+      />{" "}
       <div className="bg-black text-[1.2vw] text-white">
         <div className="mx-auto flex max-w-screen-xl gap-6 px-6 py-10 sm:gap-8">
           <div className="flex-[2]">
