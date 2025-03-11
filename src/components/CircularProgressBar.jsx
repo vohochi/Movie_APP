@@ -4,6 +4,7 @@ const CircularProgressBar = ({
   strokeWidth = 0.25,
   strokeColor = "green",
 }) => {
+  console.log({ percent });
   const radius = size / 2 - strokeWidth;
   return (
     <div>

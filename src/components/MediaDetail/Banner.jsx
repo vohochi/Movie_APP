@@ -4,6 +4,7 @@ import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { groupBy } from "lodash";
 
 const Banner = ({ mediaInfo }) => {
+  console.log({ mediaInfo });
   const certification = (
     (mediaInfo.release_dates?.results || []).find(
       (result) => result.iso_3166_1 === "US",
@@ -19,7 +20,7 @@ const Banner = ({ mediaInfo }) => {
   console.log({ crews, groupedCrews });
 
   return (
-    <div className="relative overflow-hidden text-white">
+    <div className="relative overflow-hidden text-white shadow-sm shadow-slate-800">
       <img
         className="absolute inset-0 brightness-[.2]"
         src={`https://image.tmdb.org/t/p/original${mediaInfo.backdrop_path}`}
@@ -44,7 +45,7 @@ const Banner = ({ mediaInfo }) => {
           <div className="mt-4 flex items-center gap-4">
             <div className="flex items-center gap-2">
               <CircularProgressBar
-                percent={Math.round(mediaInfo.vote_average * 10)}
+                percent={Math.round((mediaInfo.vote_average || 0) * 10)}
                 size={3.5}
                 strokeWidth={0.3}
               />{" "}
